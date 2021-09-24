@@ -17,6 +17,12 @@ namespace ProductApi.Models
 
         private void AddDummyData()
         {
+            //This is a very bad way of filling the db,
+            //Because of the scope, this method is called for every request.
+            //TODO: Refractor this ASAP
+            if (Products.Any())
+                return;
+
             Products.AddRange(
                 new Product
                 {
