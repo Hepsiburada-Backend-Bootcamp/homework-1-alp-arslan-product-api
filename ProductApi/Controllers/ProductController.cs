@@ -12,20 +12,18 @@ namespace ProductApi.Controllers
     [Route("api/v1/products")]
     public class ProductController : ControllerBase
     {
+        
+        private readonly IProductService _service;
+
+        public ProductController(IProductService productService)
+        {
+            _service = productService;
+        }
 
         [HttpGet]
-        public ActionResult<ProductDto> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
         {
-
-            List<ProductDto> list = new List<ProductDto>();
-            list.Add(new ProductDto
-            {
-                Id = 1,
-                Name = "Chair",
-                Description = "asd",
-                Price = 50
-            });
-            return Ok(list);
+            return Ok(await _service.GetProducts());
         }
     }
 }
