@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductApi.Dtos;
+using ProductApi.Exceptions;
 using ProductApi.Models;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,19 @@ namespace ProductApi.Services
         {
             _context = context;
             _mapper = mapper;
+        }
+
+        public async Task<ProductDto> GetProduct(int id)
+        {
+            
+            var product = await _context.Products.FindAsync(id);
+            
+            if(product == null)
+            {
+                throw new ProductNotFoundException(id);
+            }
+            
+            return _mapper.Map<Product, ProductDto>(product);
         }
 
         public async Task<IEnumerable<ProductDto>> GetProducts()
