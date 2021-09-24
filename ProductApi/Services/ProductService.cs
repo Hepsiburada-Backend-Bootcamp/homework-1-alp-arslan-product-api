@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using ProductApi.Dtos;
 using ProductApi.Models;
 using System;
@@ -11,36 +12,20 @@ namespace ProductApi.Services
 {
     public class ProductService : IProductService
     {
-
-        private readonly List<Product> _products;
+        //TODO: Make an interface for ProductContext
+        private readonly ProductContext _context;
         private readonly IMapper _mapper;
 
-        public ProductService(IMapper mapper)
+        public ProductService(ProductContext context, IMapper mapper)
         {
+            _context = context;
             _mapper = mapper;
-            _products = new List<Product>
-            {
-                new Product
-                {
-                    Id = 1,
-                    Name = "Chair",
-                    Description = "asd",
-                    Price = 50
-                },
-                new Product
-                {
-                    Id = 2,
-                    Name = "Sofa",
-                    Description = "adsafsd",
-                    Price = 100
-                }
-            };
         }
 
         public async Task<IEnumerable<ProductDto>> GetProducts()
         {
-            //return null;
-            return _mapper.Map<List<Product>, IEnumerable<ProductDto>>(_products);
+            List<Product> products = await _context.Products.ToListAsync();
+            return _mapper.Map<List<Product>, IEnumerable<ProductDto>>(products);
         }
     }
 }

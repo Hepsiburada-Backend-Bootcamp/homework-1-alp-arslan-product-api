@@ -29,12 +29,12 @@ namespace ProductApi
         {
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddSingleton<IProductService, ProductService>();
+            services.AddScoped<IProductService, ProductService>();
 
             services.AddControllers();
 
             services.AddDbContext<ProductContext>(opt =>
-                                               opt.UseInMemoryDatabase("TodoList"));
+                                               opt.UseInMemoryDatabase("Products"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
