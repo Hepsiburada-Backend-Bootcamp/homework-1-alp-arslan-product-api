@@ -23,27 +23,34 @@ namespace ProductApi.Models
             if (Products.Any())
                 return;
 
+            DateTime now = DateTime.Now;
             Products.AddRange(
                 new Product
                 {
                     Name = "Chair",
                     Description = "A chair",
                     Category = "Furniture",
-                    Price = 50
+                    Price = 50,
+                    DateOfCreation = now,
+                    DateOfLastEdit = now
                 },
                 new Product
                 {
                     Name = "Sofa",
                     Description = "A sofa",
                     Category = "Furniture",
-                    Price = 100
+                    Price = 100,
+                    DateOfCreation = now,
+                    DateOfLastEdit = now
                 },
                 new Product
                 {
                     Name = "Huge Phone",
                     Description = "The biggest phone yet",
                     Category = "Electronics",
-                    Price = 5000
+                    Price = 5000,
+                    DateOfCreation = now,
+                    DateOfLastEdit = now
                 }
                 );
             this.SaveChanges();

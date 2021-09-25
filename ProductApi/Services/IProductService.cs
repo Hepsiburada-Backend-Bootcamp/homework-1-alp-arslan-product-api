@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductApi.Dtos;
+using ProductApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,8 @@ namespace ProductApi.Services
     public interface IProductService
     {
         Task<IEnumerable<ProductDto>> GetProducts();
+        Task<IEnumerable<Product>> GetProductsAdmin();
         Task<ProductDto> GetProduct(int id);
+        Task<int> CreateProduct(CreateProductDto dto);
     }
 }

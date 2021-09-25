@@ -23,6 +23,16 @@ namespace ProductApi.Services
             _mapper = mapper;
         }
 
+        public async Task<int> CreateProduct(CreateProductDto dto)
+        {
+            Product product = _mapper.Map<CreateProductDto, Product>(dto);
+            product.DateOfCreation = product.DateOfLastEdit = DateTime.Now;
+            _context.Products.Add(product);
+            await _context.SaveChangesAsync();
+
+            return product.Id;
+        }
+
         public async Task<ProductDto> GetProduct(int id)
         {
             
@@ -40,6 +50,11 @@ namespace ProductApi.Services
         {
             List<Product> products = await _context.Products.ToListAsync();
             return _mapper.Map<List<Product>, IEnumerable<ProductDto>>(products);
+        }
+
+        public async Task<IEnumerable<Product>> GetProductsAdmin()
+        {
+            return await _context.Products.ToListAsync();
         }
     }
 }
