@@ -1,3 +1,5 @@
+###### Delete, update, validasyon, sıralama, readme kaldı.
+
 # 1. Hafta Ödev
 Restful Api Geliştirin
 
