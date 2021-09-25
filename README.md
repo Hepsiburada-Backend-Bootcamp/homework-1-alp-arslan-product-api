@@ -1,3 +1,4 @@
+###### Business logic'i controllerdan ayırmak için bir süre uğraştım. Feedbacklerinizi beklerim o/
 ###### Delete, update, validasyon, sıralama, readme kaldı.
 
 # 1. Hafta Ödev
