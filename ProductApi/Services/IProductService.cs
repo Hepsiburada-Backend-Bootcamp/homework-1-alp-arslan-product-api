@@ -14,5 +14,6 @@ namespace ProductApi.Services
         Task<IEnumerable<Product>> GetProductsAdmin();
         Task<ProductDto> GetProduct(int id);
         Task<int> CreateProduct(CreateProductDto dto);
+        Task<bool> DeleteProduct(int id);
     }
 }

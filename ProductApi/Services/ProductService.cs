@@ -33,6 +33,17 @@ namespace ProductApi.Services
             return product.Id;
         }
 
+        public async Task<bool> DeleteProduct(int id)
+        {
+            Product product = await _context.Products.FindAsync(id);
+            if (product == null)
+                return false;
+
+            _context.Remove(product);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
         public async Task<ProductDto> GetProduct(int id)
         {
             

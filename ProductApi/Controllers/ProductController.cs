@@ -28,6 +28,8 @@ namespace ProductApi.Controllers
             return Ok(await _service.GetProducts());
         }
 
+        //This endpoint is for testing purposes.
+        //No endpoint should pass the model by itself.
         [HttpGet("admin")]
         public async Task<ActionResult<IEnumerable<Product>>> GetProductsAdmin()
         {
@@ -61,6 +63,13 @@ namespace ProductApi.Controllers
             {
                 return BadRequest();
             }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteProduct([FromRoute] int id)
+        {
+            bool status = await _service.DeleteProduct(id);
+            return status ? NoContent() : NotFound();
         }
     }
 }
