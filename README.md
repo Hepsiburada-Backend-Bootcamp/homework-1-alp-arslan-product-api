@@ -1,5 +1,5 @@
 ###### Business logic'i controllerdan ayırmak için bir süre uğraştım. Feedbacklerinizi beklerim o/
-###### Update, validasyon, sıralama, readme kaldı.
+###### Sıralama, dökümantasyon kaldı.
 
 # 1. Hafta Ödev
 Restful Api Geliştirin
