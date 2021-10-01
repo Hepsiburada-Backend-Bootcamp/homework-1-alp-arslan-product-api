@@ -13,7 +13,7 @@ namespace ProductApi.Services
 {
     public class ProductService : IProductService
     {
-        //TODO: Make an interface for ProductContext
+        //TODO: Make a repository for ProductContext
         private readonly ProductContext _context;
         private readonly IMapper _mapper;
 
@@ -46,20 +46,42 @@ namespace ProductApi.Services
 
         public async Task<ProductDto> GetProduct(int id)
         {
-            
+
             var product = await _context.Products.FindAsync(id);
-            
-            if(product == null)
+
+            if (product == null)
             {
                 throw new ProductNotFoundException(id);
             }
-            
+
             return _mapper.Map<Product, ProductDto>(product);
         }
 
-        public async Task<IEnumerable<ProductDto>> GetProducts()
+        public async Task<IEnumerable<ProductDto>> GetProducts(string sortParameter)
         {
             List<Product> products = await _context.Products.ToListAsync();
+
+            if (string.IsNullOrWhiteSpace(sortParameter))
+                throw new ArgumentNullException();
+
+            switch (sortParameter)
+            {
+                case "id":
+                    products = products.OrderBy(p => p.Id).ToList();
+                    break;
+                case "name":
+                    products = products.OrderBy(p => p.Name).ToList();
+                    break;
+                case "price":
+                    products = products.OrderBy(p => p.Price).ToList();
+                    break;
+                case "category":
+                    products = products.OrderBy(p => p.Category).ToList();
+                    break;
+                default:
+                    break;
+            }
+
             return _mapper.Map<List<Product>, IEnumerable<ProductDto>>(products);
         }
 
@@ -72,7 +94,7 @@ namespace ProductApi.Services
         {
             if (id != dto.Id)
                 throw new IdDoesNotBelongToProductExcepiton(id, dto.Name);
-            
+
             bool exists = await _context.Products.AnyAsync(e => e.Id == id);
             if (!exists)
                 throw new ProductNotFoundException(id);

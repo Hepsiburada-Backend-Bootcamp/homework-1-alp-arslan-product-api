@@ -10,7 +10,7 @@ namespace ProductApi.Services
 {
     public interface IProductService
     {
-        Task<IEnumerable<ProductDto>> GetProducts();
+        Task<IEnumerable<ProductDto>> GetProducts(string sortParameter);
         Task<IEnumerable<Product>> GetProductsAdmin();
         Task<ProductDto> GetProduct(int id);
         Task<int> CreateProduct(CreateProductDto dto);

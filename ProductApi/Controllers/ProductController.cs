@@ -23,9 +23,9 @@ namespace ProductApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts([FromQuery]string sortBy = "id")
         {
-            return Ok(await _service.GetProducts());
+            return Ok(await _service.GetProducts(sortBy));
         }
 
         //This endpoint is for testing purposes.
