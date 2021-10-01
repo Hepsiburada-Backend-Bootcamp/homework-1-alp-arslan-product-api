@@ -67,5 +67,21 @@ namespace ProductApi.Services
         {
             return await _context.Products.ToListAsync();
         }
+
+        public async Task UpdateProduct(int id, UpdateProductDto dto)
+        {
+            if (id != dto.Id)
+                throw new IdDoesNotBelongToProductExcepiton(id, dto.Name);
+            
+            bool exists = await _context.Products.AnyAsync(e => e.Id == id);
+            if (!exists)
+                throw new ProductNotFoundException(id);
+
+            Product product = await _context.Products.FindAsync(id);
+            product = _mapper.Map(dto, product);
+            product.DateOfLastEdit = DateTime.Now;
+            _context.Entry(product).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
     }
 }

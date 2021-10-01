@@ -13,6 +13,7 @@ namespace ProductApi.Dtos
         {
             CreateMap<Product, ProductDto>();
             CreateMap<CreateProductDto, Product>();
+            CreateMap<UpdateProductDto, Product>();
         }
     }
 }

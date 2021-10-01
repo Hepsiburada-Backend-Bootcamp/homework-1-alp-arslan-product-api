@@ -15,5 +15,6 @@ namespace ProductApi.Services
         Task<ProductDto> GetProduct(int id);
         Task<int> CreateProduct(CreateProductDto dto);
         Task<bool> DeleteProduct(int id);
+        Task UpdateProduct(int id, UpdateProductDto dto);
     }
 }

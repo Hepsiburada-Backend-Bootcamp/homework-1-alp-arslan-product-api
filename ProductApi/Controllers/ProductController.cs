@@ -68,8 +68,37 @@ namespace ProductApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteProduct([FromRoute] int id)
         {
-            bool status = await _service.DeleteProduct(id);
-            return status ? NoContent() : NotFound();
+            try
+            {
+                bool status = await _service.DeleteProduct(id);
+                return status ? NoContent() : NotFound();
+            }
+            catch
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<string>> UpdateProduct([FromRoute]int id, [FromBody]UpdateProductDto dto)
+        {
+            try
+            {
+                await _service.UpdateProduct(id, dto);
+            }
+            catch (IdDoesNotBelongToProductExcepiton ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (ProductNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception)
+            {
+                return BadRequest();
+            }
+            return Ok();
         }
     }
 }
